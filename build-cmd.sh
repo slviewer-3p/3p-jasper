@@ -57,13 +57,22 @@ pushd "$stage"
 			cat include/jasper/jas_config.h | awk '/JAS_VERSION /{ print $3}' | tr -d '"' > VERSION.txt
 		   
 			;;
-        linux*)
-			exit 1
+        linux64)
+			cmake -DJAS_ENABLE_SHARED=OFF -DCMAKE_OSX_ARCHITECTURES="x86_64" -DJAS_ENABLE_LIBJPEG=OFF  -S ${src}
+			cmake --build . --config Release
+			mkdir -p lib/release/
+			mkdir -p include
+
+			cp src/libjasper/libjasper.a lib/release/
+			cp -a ${src}/src/libjasper/include/* include/
+			cp -a src/libjasper/include/* include/
+			cat include/jasper/jas_config.h | awk '/JAS_VERSION /{ print $3}' | tr -d '"' > VERSION.txt
+		   
 			;;
 
-		*)
-			echo "Unsupported platform"
-			exit 1
+	*)
+	    echo "Unsupported platform"
+	    exit 1
     esac
     mkdir -p "$stage/LICENSES"
     cp ${src}/LICENSE.txt "$stage/LICENSES/jasper.txt"
