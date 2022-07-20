@@ -66,6 +66,10 @@ pushd "$stage"
 			cp src/libjasper/libjasper.a lib/release/
 			cp -a ${src}/src/libjasper/include/* include/
 			cp -a src/libjasper/include/* include/
+
+			# Need to remove this or not make -Wall -Werror trip on this warning ...
+			sed -i "s^#warning ^//#warning ^" include/jasper/jas_config.h
+			
 			cat include/jasper/jas_config.h | awk '/JAS_VERSION /{ print $3}' | tr -d '"' > VERSION.txt
 		   
 			;;
