@@ -3,6 +3,8 @@
 <map>
     <key>package_description</key>
     <map>
+      <key>canonical_repo</key>
+      <string>https://github.com/slviewer-3p/3p-jasper</string>
       <key>copyright</key>
       <string>Copyright (c) 2001-2022 Michael David Adams. Copyright (c) 1999-2000 Image Power, Inc. and the University of British Columbia</string>
       <key>description</key>
